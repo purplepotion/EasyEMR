@@ -1,2 +1,4 @@
 migrations/
 emr.db
+__pycache__/
+.idea

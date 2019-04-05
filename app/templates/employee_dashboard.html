@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+<link rel="stylesheet" type= "text/css" href="{{url_for('static', filename='css/dashboard.css')}}">
+{% block content %}
+    <h1>Employee Id: {{ user.employee_id }}</h1>
+
+{% for message in patientform.name.errors %}
+         <div>{{ message }}</div>
+      {% endfor %}
+
+{% for message in patientform.age.errors %}
+         <div>{{ message }}</div>
+      {% endfor %}
+
+{% for message in patientform.gender.errors %}
+         <div>{{ message }}</div>
+      {% endfor %}
+
+{% for message in patientform.prescription.errors %}
+         <div>{{ message }}</div>
+      {% endfor %}
+
+<button onclick="toggle_display()">Add New Patient</button>
+
+<div class="patient_form_content_section" style="visibility:hidden;">
+<form action="" method="post" novalidate>
+        {{ patientform.hidden_tag() }}
+
+        <p>{{ patientform.name.label }}<br>
+            {{ patientform.name(size=32) }}
+        </p>
+
+        <p>{{ patientform.age.label }}<br>
+            {{ patientform.age(size=32) }}
+        </p>
+
+        <p>{{ patientform.gender.label }}<br>
+            {{ patientform.gender(size=32) }}
+        </p>
+
+         <p>{{ patientform.height.label }}<br>
+            {{ patientform.height(size=32) }}
+        </p>
+
+        <p>{{ patientform.weight.label }}<br>
+            {{ patientform.weight(size=32) }}
+        </p>
+
+        <p>{{ patientform.prescription.label }}<br>
+            {{ patientform.prescription(size=32) }}
+        </p>
+
+        <p>{{ patientform.medications.label }}<br>
+            {{ patientform.medications(size=32) }}
+        </p>
+
+        <p>{{ patientform.tests.label }}<br>
+            {{ patientform.tests(size=32) }}
+        </p>
+
+        <p>{{ patientform.add() }}</p>
+    </form>
+
+</div>
+
+<script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
+{% endblock %}

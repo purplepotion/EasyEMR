@@ -71,4 +71,6 @@ def employee(employee_id):
         db.session.add(patient)
         db.session.commit()
         flash('Successfully Added New Patient')
+    else:
+        flash("Registration Unsuccessful. Kindly input correct form values")
     return render_template('employee_dashboard.html', user=employee, patientform=patientform)

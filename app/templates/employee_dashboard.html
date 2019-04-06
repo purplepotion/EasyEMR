@@ -1,65 +1,41 @@
 {% extends "base.html" %}
-<link rel="stylesheet" type= "text/css" href="{{url_for('static', filename='css/dashboard.css')}}">
+{% import "bootstrap/wtf.html" as wtf %}
+
 {% block content %}
-    <h1>Employee Id: {{ user.employee_id }}</h1>
+<div class="container">
+    <div class="row">
+            <p><strong>Employee Id: {{ user.employee_id }}</strong> </p>
+    </div>
+</div>
+<div class="container">
+    <button class="btn btn-primary" onclick="toggle_display()"> <strong>+</strong> New Patient</button>
+</div>
 
-{% for message in patientform.name.errors %}
-         <div>{{ message }}</div>
-      {% endfor %}
+<div class="patient_form_content_section" style="display : none;">
+    <div class="container">
+        <form action="" method="post" novalidate>
+            {{ patientform.hidden_tag() }}
 
-{% for message in patientform.age.errors %}
-         <div>{{ message }}</div>
-      {% endfor %}
+             {{ wtf.form_field(patientform.name) }}
 
-{% for message in patientform.gender.errors %}
-         <div>{{ message }}</div>
-      {% endfor %}
+             {{ wtf.form_field(patientform.age) }}
 
-{% for message in patientform.prescription.errors %}
-         <div>{{ message }}</div>
-      {% endfor %}
+             {{ wtf.form_field(patientform.gender) }}
 
-<button onclick="toggle_display()">Add New Patient</button>
+             {{ wtf.form_field(patientform.height)}}
 
-<div class="patient_form_content_section" style="visibility:hidden;">
-<form action="" method="post" novalidate>
-        {{ patientform.hidden_tag() }}
+             {{ wtf.form_field(patientform.weight) }}
 
-        <p>{{ patientform.name.label }}<br>
-            {{ patientform.name(size=32) }}
-        </p>
+             {{ wtf.form_field(patientform.prescription) }}
 
-        <p>{{ patientform.age.label }}<br>
-            {{ patientform.age(size=32) }}
-        </p>
+             {{ wtf.form_field(patientform.medications) }}
 
-        <p>{{ patientform.gender.label }}<br>
-            {{ patientform.gender(size=32) }}
-        </p>
-
-         <p>{{ patientform.height.label }}<br>
-            {{ patientform.height(size=32) }}
-        </p>
-
-        <p>{{ patientform.weight.label }}<br>
-            {{ patientform.weight(size=32) }}
-        </p>
-
-        <p>{{ patientform.prescription.label }}<br>
-            {{ patientform.prescription(size=32) }}
-        </p>
-
-        <p>{{ patientform.medications.label }}<br>
-            {{ patientform.medications(size=32) }}
-        </p>
-
-        <p>{{ patientform.tests.label }}<br>
-            {{ patientform.tests(size=32) }}
-        </p>
-
-        <p>{{ patientform.add() }}</p>
-    </form>
-
+             {{ wtf.form_field(patientform.tests)}}
+        <div class="text-center">
+            <input class="btn btn-primary" type="submit" value="Submit">
+        </div>
+        </form>
+    </div>
 </div>
 
 <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>

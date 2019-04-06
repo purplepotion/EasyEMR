@@ -10,4 +10,6 @@ class Config(object):
         'sqlite:///' + os.path.join(basedir, 'emr.db')
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'Easy-EMR'
 
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_TRACK_MODIFICATIONS=False
+    FLASK_ENV='development'
+    BOOTSTRAP_SERVE_LOCAL=True

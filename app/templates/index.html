@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Welcome!</h1>
-<h1>Employee Id: {{current_user.employee_id}}</h1>
+<div class="container">
+    <div class="row">
+        <h3>Welcome!</h3>
+        <h3>Employee Id: {{current_user.employee_id}}</h3>
+    </div>
+</div>
 
 {% endblock %}

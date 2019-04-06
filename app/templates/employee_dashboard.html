@@ -7,34 +7,64 @@
             <p><strong>Employee Id: {{ user.employee_id }}</strong> </p>
     </div>
 </div>
+
+
+
 <div class="container">
-    <button class="btn btn-primary" onclick="toggle_display()"> <strong>+</strong> New Patient</button>
+    <div class="row">
+        <div class="col-md-8">
+            <button class="btn btn-primary" onclick="toggle_display1()"> <strong>+</strong> New Patient</button>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary" onclick="toggle_display2()"> View Patients</button>
+        </div>
+        <div class="col-md-2">
+            <a href="{{ url_for('employee', employee_id=current_user.employee_id) }}" class="btn btn-success"> REFRESH</a>
+        </div>
+
+    </div>
+</div>
+
+<div class="container clients_display" style="display:none;">
+    <div class="row">
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            {% for items in clients %}
+            <p>{{items[1]}}</p>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 
 <div class="patient_form_content_section" style="display : none;">
     <div class="container">
-        <form action="" method="post" novalidate>
-            {{ patientform.hidden_tag() }}
+        <div class="row">
+            <div class="col-md-6">
+                <form action="" method="post" novalidate>
+                {{ patientform.hidden_tag() }}
 
-             {{ wtf.form_field(patientform.name) }}
+                 {{ wtf.form_field(patientform.name) }}
 
-             {{ wtf.form_field(patientform.age) }}
+                 {{ wtf.form_field(patientform.age) }}
 
-             {{ wtf.form_field(patientform.gender) }}
+                 {{ wtf.form_field(patientform.gender) }}
 
-             {{ wtf.form_field(patientform.height)}}
+                 {{ wtf.form_field(patientform.height)}}
 
-             {{ wtf.form_field(patientform.weight) }}
+                 {{ wtf.form_field(patientform.weight) }}
 
-             {{ wtf.form_field(patientform.prescription) }}
+                 {{ wtf.form_field(patientform.prescription) }}
 
-             {{ wtf.form_field(patientform.medications) }}
+                 {{ wtf.form_field(patientform.medications) }}
 
-             {{ wtf.form_field(patientform.tests)}}
-        <div class="text-center">
-            <input class="btn btn-primary" type="submit" value="Submit">
+                 {{ wtf.form_field(patientform.tests)}}
+                <div class="text-center">
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                </div>
+
+                </form>
+            </div>
         </div>
-        </form>
     </div>
 </div>
 

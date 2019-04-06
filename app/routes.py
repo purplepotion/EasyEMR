@@ -2,7 +2,7 @@ from app import app
 from flask import render_template, flash, redirect, url_for, request
 from app.forms import LoginForm, NewPatientForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Patient
+from app.models import User, Patient, appointments
 from werkzeug.urls import url_parse
 from app.forms import RegistrationForm
 from app import db
@@ -58,6 +58,8 @@ def register():
 def employee(employee_id):
     employee = User.query.filter_by(employee_id=employee_id).first_or_404()
     patientform = NewPatientForm()
+    clients = db.session.query(appointments).filter(appointments.c.employee_id == employee_id).all()
+
     if patientform.validate_on_submit():
         patient = Patient(name=patientform.name.data,
                           age=patientform.age.data,
@@ -70,7 +72,10 @@ def employee(employee_id):
                           )
         db.session.add(patient)
         db.session.commit()
+        patient.appointments.append(employee)
+        db.session.commit()
         flash('Successfully Added New Patient')
+        return redirect(url_for('employee', employee_id=employee_id))
     else:
         flash("Registration Unsuccessful. Kindly input correct form values")
-    return render_template('employee_dashboard.html', user=employee, patientform=patientform)
+    return render_template('employee_dashboard.html', user=employee, patientform=patientform, clients=clients)

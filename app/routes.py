@@ -59,9 +59,15 @@ def employee(employee_id):
     employee = User.query.filter_by(employee_id=employee_id).first_or_404()
     patientform = NewPatientForm()
     clients = db.session.query(appointments).filter(appointments.c.employee_id == employee_id).all()
+    patient_list = []
+    for item in clients:
+        patient_id = item[1]
+        query = Patient.query.filter_by(patient_id=patient_id).all()
+        patient_list.append(query)
 
     if patientform.validate_on_submit():
-        patient = Patient(name=patientform.name.data,
+        patient = Patient(patient_id=patientform.patient_id.data,
+                          name=patientform.name.data,
                           age=patientform.age.data,
                           gender=patientform.gender.data,
                           height=patientform.height.data,
@@ -78,4 +84,4 @@ def employee(employee_id):
         return redirect(url_for('employee', employee_id=employee_id))
     else:
         flash("Registration Unsuccessful. Kindly input correct form values")
-    return render_template('employee_dashboard.html', user=employee, patientform=patientform, clients=clients)
+    return render_template('employee_dashboard.html', user=employee, patientform=patientform, patientlist=patient_list)

@@ -12,61 +12,80 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
-            <button class="btn btn-primary" onclick="toggle_display1()"> <strong>+</strong> New Patient</button>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#addpatientmodal">Add Patient</button>
         </div>
-        <div class="col-md-2">
-            <button class="btn btn-primary" onclick="toggle_display2()"> View Patients</button>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#patientlistmodal">View Patients</button>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-4">
             <a href="{{ url_for('employee', employee_id=current_user.employee_id) }}" class="btn btn-success"> REFRESH</a>
         </div>
-
     </div>
 </div>
 
-<div class="container clients_display" style="display:none;">
-    <div class="row">
-        <div class="col-md-8"></div>
-        <div class="col-md-4">
-            {% for items in clients %}
-            <p>{{items[1]}}</p>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-
-<div class="patient_form_content_section" style="display : none;">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <form action="" method="post" novalidate>
-                {{ patientform.hidden_tag() }}
-
-                 {{ wtf.form_field(patientform.name) }}
-
-                 {{ wtf.form_field(patientform.age) }}
-
-                 {{ wtf.form_field(patientform.gender) }}
-
-                 {{ wtf.form_field(patientform.height)}}
-
-                 {{ wtf.form_field(patientform.weight) }}
-
-                 {{ wtf.form_field(patientform.prescription) }}
-
-                 {{ wtf.form_field(patientform.medications) }}
-
-                 {{ wtf.form_field(patientform.tests)}}
-                <div class="text-center">
-                    <input class="btn btn-primary" type="submit" value="Submit">
+<div class="modal fade" id="patientlistmodal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Your Patients:</h4>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Patient id</th>
+                            <th>Name</th>
+                            <th>Prescription</th>
+                            <th>Medications</th>
+                            <th>Tests</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for items in patientlist %}
+                          {% for patient in items %}
+                                <tr>
+                                    <td>{{patient.patient_id}}</td>
+                                    <td>{{patient.name}}</td>
+                                    <td>{{patient.prescription}}</td>
+                                    <td>{{patient.medications}}</td>
+                                    <td>{{patient.tests}}</td>
+                                </tr>
+                          {% endfor %}
+                     {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-
-                </form>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="addpatientmodal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center">Add New Patient</h4>
+                <p class="text-center">* marked fields cannot be left blank</p>
+                <div class="modal-body">
+                          <form action="" method="post" novalidate>
+                              {{ patientform.hidden_tag() }}
+                              {{ wtf.quick_form(patientform) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
 
 <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
 {% endblock %}

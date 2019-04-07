@@ -7,7 +7,7 @@ from flask_login import UserMixin
 # Association table
 appointments = db.Table('appointments',
                         db.Column('employee_id', db.Integer, db.ForeignKey('user.employee_id')),
-                        db.Column('patient_id', db.String, db.ForeignKey('patient.name'))
+                        db.Column('patient_id', db.String, db.ForeignKey('patient.patient_id'))
                         )
 
 
@@ -35,6 +35,7 @@ def load_user(id):
 
 class Patient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    patient_id = db.Column(db.String)
     name = db.Column(db.String(64))
     age = db.Column(db.Integer)
     gender = db.Column(db.String(16))

@@ -31,12 +31,13 @@ class RegistrationForm(FlaskForm):
 
 
 class NewPatientForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    age = IntegerField('Age', validators=[DataRequired()])
-    gender = RadioField('Gender', choices = [('M', 'Male'), ('F', 'Female')])
+    patient_id = StringField('Patient_id*', validators=[DataRequired()])
+    name = StringField('Name*', validators=[DataRequired()])
+    age = IntegerField('Age*', validators=[DataRequired()])
+    gender = RadioField('Gender', choices=[('M', 'Male'), ('F', 'Female')])
     height = IntegerField('Height')
     weight = IntegerField('Weight')
-    prescription = TextAreaField('Prescription', validators=[DataRequired()])
+    prescription = TextAreaField('Prescription*', validators=[DataRequired()])
     medications = TextAreaField('medications')
     tests = TextAreaField('Prescribed Tests')
     add = SubmitField('Add Patient')

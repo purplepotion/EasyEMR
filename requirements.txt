@@ -26,7 +26,7 @@ Jinja2==2.10
 jsonschema==2.6.0
 jsonstruct==0.2a1
 jupyter-core==4.4.0
-Mako==1.0.8
+Mako==1.2.2
 MarkupSafe==1.1.0
 marshmallow==2.18.0
 marshmallow-sqlalchemy==0.15.0
